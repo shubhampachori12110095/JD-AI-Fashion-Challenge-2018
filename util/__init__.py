@@ -1,5 +1,4 @@
 import os
+import sys
 
-from . import path
-
-path.ROOT_PATH = os.path.abspath("../")
+sys.path.append(os.path.abspath("../"))
