@@ -20,14 +20,7 @@ TXT_PATH = os.path.join(DATA_PATH, "txt")
 TRAIN_DATA_TXT = os.path.join(TXT_PATH, "train-image.txt")
 TEST_DATA_TXT = os.path.join(TXT_PATH, "test-image.txt")
 TEST_RESULT_TXT = os.path.join(TXT_PATH, "test-label.txt")
-
-
-def get_train_data_path(data_type):
-    return os.path.join(os.path.join(IMAGES_PATH, data_type), TRAIN_IMAGES_SUBDIR)
-
-
-def get_test_data_path(data_type):
-    return os.path.join(os.path.join(IMAGES_PATH, data_type), TEST_IMAGES_SUBDIR)
+K_FOLD_FILE = os.path.join(TXT_PATH, "train-image-k-fold.txt")
 
 
 def image_path_init():

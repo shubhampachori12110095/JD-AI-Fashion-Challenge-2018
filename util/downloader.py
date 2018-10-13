@@ -4,8 +4,10 @@ import pathlib
 import time
 
 import tensorflow as tf
+import cv2
 
 from util import path
+from util import data_loader
 
 
 def parse_data_line(line: str):
@@ -83,16 +85,30 @@ def download_photos(txt_dir: str, photo_save_dir: str, photo_save_subdir: str, i
             print("下载所有图片共花费 %f 秒" % (time.time() - start_time))
 
 
-def download_train_photos(thread_number):
+def download_images(thread_number):
+    """
+    下载训练数据
+    :param thread_number: 并发下载数量
+    :return:
+    """
     download_photos(path.TRAIN_DATA_TXT, path.ORIGINAL_IMAGES_PATH, path.TRAIN_IMAGES_SUBDIR, is_test=False,
                     thread_number=thread_number)
-
-
-def download_test_photos(thread_number):
     download_photos(path.TEST_DATA_TXT, path.ORIGINAL_IMAGES_PATH, path.TEST_IMAGES_SUBDIR, is_test=True,
                     thread_number=thread_number)
 
 
+def image_repair():
+    """
+    下载下来的图像部分格式存在小问题，通过CV打开再保存即可修复。
+    :return:
+    """
+    names = data_loader.list_image_dir(path.ORIGINAL_TRAIN_IMAGES_PATH)
+    names += data_loader.list_image_dir(path.ORIGINAL_TEST_IMAGES_PATH)
+    for name in names:
+        img = cv2.imread(name)
+        cv2.imwrite(name, img)
+
+
 if __name__ == '__main__':
-    download_train_photos(16)
-    download_test_photos(16)
+    download_images(16)
+    image_repair()
