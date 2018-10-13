@@ -13,7 +13,6 @@ import keras.backend as K
 from keras.preprocessing.image import ImageDataGenerator, Iterator, img_to_array
 
 from util import path
-from util import path
 
 
 def get_labels(file_names):
@@ -209,4 +208,4 @@ def image_repair():
 
 if __name__ == '__main__':
     download_all_images(16)
-    # image_repair()
+    image_repair()
