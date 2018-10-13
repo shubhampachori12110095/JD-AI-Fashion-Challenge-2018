@@ -3,6 +3,7 @@ import re
 import time
 import random
 import pathlib
+from tqdm import tqdm
 import concurrent.futures
 
 import cv2
@@ -199,9 +200,10 @@ def image_repair():
     下载下来的图像部分格式存在小问题，通过CV打开再保存即可修复。
     :return:
     """
+    print("start image repair")
     names = list_image_dir(path.ORIGINAL_TRAIN_IMAGES_PATH)
     names += list_image_dir(path.ORIGINAL_TEST_IMAGES_PATH)
-    for name in names:
+    for name in tqdm(names, miniters=100):
         img = cv2.imread(name)
         cv2.imwrite(name, img)
 
